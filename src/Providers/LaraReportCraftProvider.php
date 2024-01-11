@@ -16,7 +16,7 @@ class LaraReportCraftProvider extends ServiceProvider
             ]);
         }
 
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'lara_excel_craft');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'lara_report_craft');
         Blade::componentNamespace('DevPirate\\LaraReportCraft\\View\\Components', 'lara-report-craft');
 
         $folderPath = public_path('vendor/lara-report-craft');
