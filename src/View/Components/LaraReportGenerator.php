@@ -1,6 +1,6 @@
 <?php
 
-namespace DevPirate\LaraExcelCraft\View\Components;
+namespace DevPirate\LaraReportCraft\View\Components;
 
 use Illuminate\View\Component;
 

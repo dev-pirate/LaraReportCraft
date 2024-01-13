@@ -1,0 +1,19 @@
+.report-app-container {
+  padding: 1em;
+}
+.report-app-container .ant-form-item {
+  margin-bottom: 0px;
+}
+.report-app-container .buttons-container {
+  display: flex;
+  width: 100%;
+}
+.report-app-container .buttons-container .buttons-area {
+  display: flex;
+}
+.report-app-container .buttons-container .buttons-area button {
+  margin-left: 1%;
+}
+.report-app-container .table-container {
+  margin-top: 14px;
+}

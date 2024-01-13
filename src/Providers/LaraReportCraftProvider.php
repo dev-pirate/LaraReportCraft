@@ -23,7 +23,7 @@ class LaraReportCraftProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../../public' => $folderPath,
-        ], 'lara-report-craft-assets');
+        ], 'laravel-assets');
 
         $this->publishes([
             __DIR__ . '/../../config/lara-report-craft.php' => config_path('lara-report-craft.php'),

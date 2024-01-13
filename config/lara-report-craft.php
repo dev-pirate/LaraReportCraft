@@ -5,6 +5,9 @@
 return [
     'fileTempDisk' =>  'local',
 
-    'reports_path' => app_path('Models')
-    // other configuration parameters
+    /**
+     * Path where the Reports classes are available
+     * as an example bellow you will find the Reports inside app/Reports folder
+     */
+    'reports_path' => app_path('Reports')
 ];

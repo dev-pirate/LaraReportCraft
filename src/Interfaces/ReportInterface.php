@@ -4,6 +4,7 @@ namespace DevPirate\LaraReportCraft\Interfaces;
 
 interface ReportInterface
 {
-    public static function generate_report();
+    public function getReportTitle(): string;
+    public function generate_report(): array;
 
 }

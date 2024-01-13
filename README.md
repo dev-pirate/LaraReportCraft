@@ -1,13 +1,15 @@
-# LaraExcelCraft
+# LaraReportCraft
 
-Foobar is a Python library for dealing with word pluralization.
+LaraReportCraft is a Laravel library for managing and creating the reports easily
+with nice single page table view and printing ability, also the package give you the ability
+to customize the header, the footer, the title, the column and data rows of the report and .
 
 ## Install via composer
 
 Run the following command to pull in the latest version:
 
 ```bash
-composer require dev-pirate/lara-excel-craft
+composer require dev-pirate/lara-report-craft
 ```
 
 ## Publish the config
@@ -15,10 +17,10 @@ composer require dev-pirate/lara-excel-craft
 Run the following command to publish the package config file:
 
 ```bash
-php artisan vendor:publish --provider="DevPirate\LaraExcelCraft\Providers\LaraExcelCraftProvider"
+php artisan vendor:publish --provider="DevPirate\LaraReportCraft\Providers\LaraReportCraftProvider"
 ```
 
-You should now have a config/lara-excel-craft.php file that allows you to configure the basics of this package.
+You should now have a config/lara-report-craft.php file that allows you to configure the basics of this package.
 
 ## Add Routes
 
@@ -35,64 +37,47 @@ Route::middleware([
 // \Fruitcake\Cors\HandleCors middleware are required here to manage cors
 ```
 
-## Custom Excel Import
+## Create Custom Report Class
 Before continuing, make sure you have installed the package as per the installation instructions for Laravel.
 
-### Update your User model
-Firstly you need to implement the DevPirate\LaraExcelCraft\Interfaces\ImportableInterface interface on your model, which require a custom data importing logic, you implement the 2 methods importDataFromExcel(array $data) and getImportableFields().
+### Create your Class
+Firstly you need to extend the DevPirate\LaraReportCraft\Facades\GeneralReport class on your report class, 
+which require a custom data and functions logic
 
 The example below should give you an idea of how this could look. Obviously you should make any changes, as necessary, to suit your own needs.
 
 ```php
 <?php
 
-namespace App\Models;
+namespace App\Reports;
 
+use App\Models\Example;
 use Carbon\Carbon;
-use DevPirate\LaraExcelCraft\Interfaces\ImportableInterface;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use DevPirate\LaraReportCraft\Facades\GeneralReport;
 
-class Example extends Model implements ImportableInterface
+class ExampleReport extends GeneralReport
 {
-    use HasFactory;
+    protected string $reportTitle = 'Example report testing';
 
-    protected $fillable = [
-        'orderDate',
-        'region',
-        'rep',
-        'item',
-        'unit',
-        'total',
-        'created_at',
-        'updated_at',
+    protected array $columns = [
+        ['field' => 'order_date', 'title' => 'Order Date'],
+        ['field' => 'region', 'title' => 'Région'],
+        ['field' => 'rep', 'title' => 'Rep order'],
+        ['field' => 'item', 'title' => 'Item N°'],
+        ['field' => 'unit', 'title' => 'Unit code'],
     ];
 
-    public static function importDataFromExcel(array $data)
+    public function generate_report(): array
     {
-        $data = array_map(function ($item) {
+        return array_map(function ($example) {
             return [
-                ...$item,
-                'total' => floatval($item['total'] ?? 0),
-                'unit' => intval($item['unit'] ?? 0),
-                'orderDate' => $item['orderDate'] ? Carbon::createFromFormat('m/d/y', trim($item['orderDate'])): null,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'order_date' => Carbon::parse($example['orderDate'])->format('d/m/Y') ?? '',
+                'region' => $example['region'],
+                'rep' => $example['rep'],
+                'item' => $example['item'],
+                'unit' => $example['unit']
             ];
-        }, $data);
-        self::insert($data);
-    }
-
-    public static function getImportableFields()
-    {
-        return [
-            'orderDate',
-            'region',
-            'rep',
-            'item',
-            'unit',
-            'total'
-        ];
+        }, Example::all()->toArray());
     }
 }
 
@@ -100,19 +85,14 @@ class Example extends Model implements ImportableInterface
 
 ## Config File
 
-Let's review some of the options in the config/lara-excel-craft.php file that we published earlier.
+Let's review some of the options in the config/lara-report-craft.php file that we published earlier.
 
 First up is:
 ```php
 <?php
 
 return [
-    // storage disk name where the uploaded temp excel files are going to be stored
-    'fileTempDisk' =>  'local',
-     // path where your application models classes are stored
-    'models_path' => app_path('Models'),
-    // route name where you want the application to redirect you after importing the data with excel sheet
-    'redirectTo' => 'home'
+    'reports_path' => app_path('Reports')
     // other configuration parameters
 ];
 ```
