@@ -34,7 +34,7 @@
                 "LaraReportCraft": "DevPirate\\LaraReportCraft\\LaraReportCraft"
             },
             "providers": [
-              "LaraReportCraftProvider"
+              "DevPirate\\LaraReportCraft\\Providers\\LaraReportCraftProvider"
             ]
         }
     }
