@@ -32,11 +32,12 @@
             padding: 5px;
             background: #EEE;
         }
-        .table-row { border: 1px solid #EEE; }
+        .table-row { border: 1px solid #EEE; height: 40px }
         .item-text {
             font-size: .7em;
             color: #666;
             line-height: 1.2em;
+            height: 30px;
         }
 
         .content.page-break {
@@ -96,12 +97,5 @@
         </div>
     </div>
 </body>
-
-<script>
-    let tableData = @json($data);
-    let columns = @json($columns);
-</script>
-
-<script src="{{ asset('vendor/lara-report-craft/js/printing.js') }}"></script>
 
 </html>

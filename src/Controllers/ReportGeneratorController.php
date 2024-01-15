@@ -10,7 +10,7 @@ class ReportGeneratorController
 {
     public function __invoke(Request $request, ReportGenerator $generator) {
         $data = $this->validator($request->all())->validate();
-        $infos = $generator->generate($data['title']);
+        $infos = $generator->generate($data['title'], $data['filter']);
 
         if ($infos !== null) {
             return response()->json(['data' => $infos['data'], 'columns' => $infos['columns'], 'success' => true]);
@@ -22,7 +22,8 @@ class ReportGeneratorController
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'title' => ['required', 'string']
+            'title' => ['required', 'string'],
+            'filter' => ['required', 'array']
         ]);
     }
 }

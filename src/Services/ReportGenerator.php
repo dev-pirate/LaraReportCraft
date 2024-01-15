@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class ReportGenerator
 {
-    public function generate($title) {
+    public function generate($title, $filterData) {
         $modelPath = config('lara-report-craft.reports_path');
         $files = (new Filesystem)->files($modelPath);
 
@@ -35,7 +35,7 @@ class ReportGenerator
         if ($class) {
             return [
                 'columns' => $class->getColumns(),
-                'data' => $class->generate_report()
+                'data' => $class->generate_report($filterData)
             ];
         }
 

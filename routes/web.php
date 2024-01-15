@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'lara-report-craft'], function () {
     Route::get('report-list', ReportFetchController::class)->name('lara_report_craft.reports_fetch');
-    Route::get('{reportTitle}/print', ReportPrintController::class)->name('lara_report_craft.reports_printing');
+    Route::post('print', ReportPrintController::class)->name('lara_report_craft.reports_printing');
     Route::post('report-generate', ReportGeneratorController::class)->name('lara_report_craft.reports_generate');
 });
 

@@ -7,7 +7,7 @@
   \*****************************************/
 /***/ (() => {
 
-function createMultiPageDocument() {
+function createMultiPageDocument(tableData, columns) {
   // Define header and footer height
   var headerHeight = document.getElementById('header-container').clientHeight;
   var footerHeight = document.getElementById('footer-container').clientHeight;
@@ -107,10 +107,6 @@ function createMultiPageDocument() {
   }
   pageDiv.appendChild(footerDiv);
 }
-
-// Call the function to create the document
-createMultiPageDocument();
-window.print();
 
 /***/ }),
 

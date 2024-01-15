@@ -13,6 +13,14 @@ class GeneralReport implements ReportInterface
     protected array $columns = [];
 
     /**
+     * @var array with keys :
+     * ['field', 'label', 'options', 'min', 'max', 'required', 'type' => (number, text, email, tel, select, time, date, range)]
+     */
+    protected array $filterForm = [
+        ['field' => 'created_at', 'label' => 'Date range', 'type' => 'range', 'required' => true]
+    ];
+
+    /**
      * @var string specify the title of the report
      */
     protected string $reportTitle = '';
@@ -25,11 +33,16 @@ class GeneralReport implements ReportInterface
         return $this->reportTitle;
     }
 
+    public function getReportFilter(): array {
+        return $this->filterForm;
+    }
+
     /**
+     * @param array $filterData ['has ['field' => 'value']]
      * @return array
      * return an array of data used in the report table
      */
-    public function generate_report(): array {
+    public function generate_report(array $filterData): array {
         return [];
     }
 

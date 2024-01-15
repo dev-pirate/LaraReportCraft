@@ -26,7 +26,10 @@ class ReportsFinder
                 $classNamespace = $namespace . '\\' . $className;
                 if (class_exists($classNamespace) && in_array(ReportInterface::class, class_implements($classNamespace))) {
                     $reportClass = new $classNamespace;
-                    $reportsInfo[] = $reportClass->getReportTitle();
+                    $reportsInfo[] = [
+                        'title' => $reportClass->getReportTitle(),
+                        'filter' => $reportClass->getReportFilter(),
+                    ];
                 }
             }
         }
