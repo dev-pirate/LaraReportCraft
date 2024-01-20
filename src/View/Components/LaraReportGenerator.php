@@ -6,7 +6,13 @@ use Illuminate\View\Component;
 
 class LaraReportGenerator extends Component
 {
-    public function __construct() {}
+    public bool $onlySaved = false;
+
+    public function __construct(
+        $onlySaved = false
+    ) {
+        $this->onlySaved = $onlySaved;
+    }
 
     public function render()
     {

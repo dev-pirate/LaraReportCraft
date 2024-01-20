@@ -9,13 +9,18 @@ use Illuminate\Support\Facades\Validator;
 class ReportFetchController
 {
     public function __invoke(Request $request, ReportsFinder $finder) {
-        $reportNames = $finder->findReports();
+        $data = $this->validator($request->all())->validate();
+        $onlySaved = $data['onlySaved'];
+
+        $reportNames = $finder->findReports($onlySaved);
 
         return response()->json(['reports' => $reportNames, 'success' => true]);
     }
 
     protected function validator(array $data)
     {
-        return Validator::make($data, []);
+        return Validator::make($data, [
+            'onlySaved' => ['required']
+        ]);
     }
 }

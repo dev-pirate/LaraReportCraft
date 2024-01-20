@@ -37,6 +37,14 @@ class GeneralReport implements ReportInterface
         return $this->filterForm;
     }
 
+    protected function shortenString($inputString) {
+        if (strlen($inputString) > 15) {
+            return substr($inputString, 0, 15) . '...';
+        } else {
+            return $inputString;
+        }
+    }
+
     /**
      * @param array $filterData ['has ['field' => 'value']]
      * @return array
